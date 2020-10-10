@@ -1,0 +1,17 @@
+# Project exclude paths
+/.gradle/
+/Minesweeper/task/build/
+/Minesweeper/task/out/
+/Minesweeper/task/out/production/classes/
+/Problems/Currency comparision/out/
+/Problems/Currency comparision/out/production/classes/
+/Problems/Individual taxes/out/
+/Problems/Individual taxes/out/production/classes/
+/Problems/Initializing an array of integers/out/
+/Problems/Initializing an array of integers/out/production/classes/
+/Problems/The rainbow order/out/
+/Problems/The rainbow order/out/production/classes/
+/Problems/Triples/out/
+/Problems/Triples/out/production/classes/
+/Problems/Within a range/out/
+/Problems/Within a range/out/production/classes/
