@@ -38,6 +38,7 @@ fun addBombs(mines:Int){
 
             if ( bombs.add(next))
                 field[next.first][next.second].realValue = 'X'
+
         }
     }
 
