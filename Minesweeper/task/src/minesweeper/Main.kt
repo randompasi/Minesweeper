@@ -6,17 +6,17 @@ const val size = 9
 val field = Array(size) {Array(size) {Cell()} }
 val bombs = mutableSetOf<Pair<Int, Int>>()
 val starArea = mutableSetOf<Pair<Int, Int>>()
-var notAllMineFind = true
+var gameContinues : Boolean = true
 var markCount : Int = 0;
-var firstRound = true
-var mines = 0 ;
-val mineUtils = MineUtils();
+var firstRound : Boolean = true
+var mines : Int = 0 ;
+val mineUtils : MineUtils = MineUtils();
 
 fun main() {
     val scanner = Scanner(System.`in`)
    println("How many mines do you want on the field?")
      mines = scanner.nextInt()
-    while(notAllMineFind){
+    while(gameContinues){
         printField()
         println("Set/unset mines marks or claim a cell as free: ")
         play(scanner);
@@ -40,9 +40,9 @@ fun play(scanner: Scanner) {
         mineUtils.floodFill(coordinates, field)
     }
     else if(command == "free" && field[row][col].status == State.HIDDEN) {
-        if(field[row][col].realValue == 'X') {
+        if(field.getCell(Pair(row,col)).realValue == 'X') {
             println("You stepped on a mine and failed!")
-            notAllMineFind = false;
+            gameContinues = false;
             for(x in 0..8){
                 for(y in 0..8)
                     field[x][y].status = State.REVEALED
@@ -66,7 +66,7 @@ fun play(scanner: Scanner) {
         }
     }
     checkWinning()
-    if(!notAllMineFind) {
+    if(!gameContinues) {
         printField()
         print("Congratulations! You found all the mines!")
     }
@@ -76,11 +76,11 @@ fun play(scanner: Scanner) {
 fun checkWinning() {
     for(row in 0 until size){
         for(col in 0 until size){
-           if(field[row][col].status == State.REVEALED && field[row][col].realValue != 'X'){
-               notAllMineFind = false
+           if(field.getCell(Pair(row,col)).status == State.REVEALED && field.getCell(Pair(row,col)).realValue != 'X'){
+               gameContinues = false
            }
-            else if(field[row][col].status == State.HIDDEN && field[row][col].realValue != 'X')
-               notAllMineFind = true
+            else if(field.getCell(Pair(row,col)).status == State.HIDDEN && field.getCell(Pair(row,col)).realValue != 'X')
+               gameContinues = true
         }
     }
 
@@ -88,9 +88,9 @@ fun checkWinning() {
         for(bomb in bombs){
             if(field[bomb.first][bomb.second].realValue == '*')
             {
-                notAllMineFind = false
+                gameContinues = false
             }else{
-                notAllMineFind = true
+                gameContinues = true
                 return
             }
         }

@@ -2,6 +2,20 @@ package minesweeper
 
 import kotlin.random.Random
 
+fun Array<Array<Cell>>.setFakeValue(coordinates: Pair<Int, Int>, value : Char){
+    this[coordinates.first][coordinates.second].fakeValue = value
+}
+
+fun Array<Array<Cell>>.setRealValue(coordinates: Pair<Int, Int>, value : Char){
+    this[coordinates.first][coordinates.second].realValue = value
+}
+
+fun Array<Array<Cell>>.getCell(coordinates: Pair<Int, Int>): Cell{
+    return this[coordinates.first][coordinates.second]
+}
+
+
+
 class MineUtils {
 
     fun surroundingCoordinates(row: Int, col: Int): MutableSet<Pair<Int, Int>> {
@@ -83,11 +97,12 @@ class MineUtils {
 
     private fun addFlag(coordinates: Pair<Int, Int>, field: Array<Array<Cell>>){
         if( isAcceptableValues(coordinates) && notContainingBomb(coordinates) ){
-            if(field[coordinates.first][coordinates.second].realValue.isDigit()){
-                field[coordinates.first][coordinates.second].realValue = field[coordinates.first][coordinates.second].realValue.inc()
+            if(field.getCell(coordinates).realValue.isDigit()){
+                val increment = field.getCell(coordinates).realValue.inc()
+                field.setRealValue(coordinates, increment)
             }
             else {
-                field[coordinates.first][coordinates.second].realValue = '1'
+                field.setRealValue(coordinates, '1')
             }
         }
 
@@ -102,12 +117,6 @@ class MineUtils {
     }
 
 
-    fun Array<Array<Cell>>.setFakeValue(coordinates: Pair<Int, Int>, value : Char){
-        this[coordinates.first][coordinates.second].fakeValue = value
-    }
 
-    fun Array<Array<Cell>>.getCell(coordinates: Pair<Int, Int>): Cell{
-        return this[coordinates.first][coordinates.second]
-    }
 
 }
